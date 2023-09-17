@@ -34,18 +34,18 @@ def view_article(id):
     if session['page_views'] <= 3:
         article = Article.query.get(id)
 
-        if article:
-           article_data = {
+        if article is not None:  
+            article_data = {
                 'id': article.id,
                 'author': article.author,
                 'title': article.title,
                 'content': article.content,
                 'preview': article.preview,
                 'minutes_to_read': article.minutes_to_read,
-                'date': article.date.isoformat()
+                'date': article.date.isoformat(),  
             }
-           
-           return jsonify(article_data)
+
+            return jsonify(article_data)
         else:
             return jsonify({'message': 'Article not found'}), 404
 
